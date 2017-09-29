@@ -146,6 +146,10 @@ add_executable(${PROJECT_NAME}_IMU_Broadcaster_Runner src/imu/IMU_Broadcaster_Ru
 add_executable(${PROJECT_NAME}_GPS_Broadcaster_Runner src/gps/GPS_Broadcaster_Runner.cpp src/gps/GPS_Broadcaster.cpp)
 add_executable(${PROJECT_NAME}_ENC_Broadcaster_Runner src/encoder/ENC_Broadcaster_Runner.cpp src/encoder/ENC_Broadcaster.cpp)
 add_executable(${PROJECT_NAME}_Transistor_LL_Broadcaster_Runner src/low_level/Transistor_LL_Broadcaster_Runner.cpp src/low_level/Transistor_LL_Broadcaster.cpp)
+add_executable(${PROJECT_NAME}_GPS_Test src/gps-test/GPS_Test.cpp)
+
+## Python executable
+#catkin_install_python(PROGRAMS src/gps-test/GPS_TestPy.py DESTINATION ${PROJECT_NAME}_GPS_TestPy)
 
 add_dependencies(${PROJECT_NAME}_Controller_Runner robobuggy_generate_messages_cpp)
 add_dependencies(${PROJECT_NAME}_IMU_Broadcaster_Runner robobuggy_generate_messages_cpp)
@@ -163,6 +167,7 @@ set_target_properties(${PROJECT_NAME}_IMU_Broadcaster_Runner PROPERTIES OUTPUT_N
 set_target_properties(${PROJECT_NAME}_GPS_Broadcaster_Runner PROPERTIES OUTPUT_NAME GPS_Broadcaster PREFIX "")
 set_target_properties(${PROJECT_NAME}_ENC_Broadcaster_Runner PROPERTIES OUTPUT_NAME ENC_Broadcaster PREFIX "")
 set_target_properties(${PROJECT_NAME}_Transistor_LL_Broadcaster_Runner PROPERTIES OUTPUT_NAME Transistor_LL_Broadcaster PREFIX "")
+set_target_properties(${PROJECT_NAME}_GPS_Test PROPERTIES OUTPUT_NAME GPS_Test PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -184,6 +189,9 @@ target_link_libraries(${PROJECT_NAME}_ENC_Broadcaster_Runner
 target_link_libraries(${PROJECT_NAME}_Transistor_LL_Broadcaster_Runner
   ${catkin_LIBRARIES}
 )
+target_link_libraries(${PROJECT_NAME}_GPS_Test
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
@@ -194,10 +202,10 @@ target_link_libraries(${PROJECT_NAME}_Transistor_LL_Broadcaster_Runner
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+ install(PROGRAMS
+   scripts/GPS_TestPy
+   DESTINATION ${PROJECT_NAME}_GPS_TestPy
+ )
 
 ## Mark executables and/or libraries for installation
 # install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
